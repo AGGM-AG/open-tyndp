@@ -1,0 +1,30 @@
+{
+    "name": "open-tyndp",
+    "build": {
+      "context": "..",
+      "dockerfile": "Dockerfile"
+    },
+    "mounts": [
+      "source=/mnt/storage,target=/mnt/storage,type=bind",
+      "source=cutouts,target=/IdeaProjects/open-tyndp/cutouts,type=volume"
+    ],
+    "forwardPorts": [
+      8000,
+      2718
+    ],
+    "portsAttributes": {
+      "8000": {"label": "mkdocs"},
+      "2718": {"label": "marimo"}
+    },
+    "postCreateCommand": "git fetch --unshallow && pixi run pre-commit install",
+    "postAttachCommand": "",
+    "customizations": {
+      "jetbrains": {
+        "backend": "PyCharm"
+      }
+    },
+    "containerEnv": {
+      "SHELL": "/bin/zsh"
+    },
+    "remoteUser": "root"
+  }
